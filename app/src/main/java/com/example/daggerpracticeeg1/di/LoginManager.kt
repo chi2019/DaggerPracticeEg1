@@ -1,3 +1,13 @@
 package com.example.daggerpracticeeg1.di
 
-class LoginManager(val localStore: LocalStore, val apiService: ApiService)
+import android.util.Log
+import javax.inject.Inject
+
+class LoginManager @Inject constructor(val localStore: LocalStore, val apiService: ApiService) {
+
+    fun login(username: String, pass: String) {
+        Log.d("LoginManager", "login($username,$pass)")
+        val token = apiService.authenticate(username, pass)
+        localStore.saveToken(token)
+    }
+}
